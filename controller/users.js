@@ -34,7 +34,10 @@ router.get('/userAllEvents',eventHelpers.getAllEvents)
 router.get('/getSingleEvent',eventHelpers.getSingleEvent)
 
 // update event 
-router.put('/updateEvent',eventHelpers.updateEvent)
+router.put('/updateEvent',eventHelpers.updateEvent);
+
+// search event 
+router.post('/searchEvent',eventHelpers.searchEvent)
 
 
 module.exports = router;

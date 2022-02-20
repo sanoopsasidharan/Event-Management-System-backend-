@@ -15,7 +15,7 @@ module.exports={
             }
          console.log(req.session.userId);
          const event = await db.get().collection(collection.eventCollection)
-         .insertOne({eventDetails})
+         .insertOne(eventDetails)
          if(event) res.json({message:'add event',event:true})
          else res.json({message:'something err',event:false})
         }catch(err){
@@ -51,6 +51,17 @@ module.exports={
           else res.json({message:'not update event',update: false})
         }catch(err){
             res.json({message:'something error',update:false})
+        }
+    },
+    // search event 
+    searchEvent: async (req,res)=>{
+        try{
+            const findEvent = await db.get().collection(collection.eventCollection)
+            .find({ eventName: { $regex : req.body.eventName} }).toArray();
+            if(findEvent.length > 0) res.json(findEvent);
+            else res.json(null)
+        }catch(err){
+            res.json(null)
         }
     }
 }
