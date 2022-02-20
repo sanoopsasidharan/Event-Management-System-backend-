@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const userHelpers = require('../model/users/usersHelper');
+const {myLogger} = require('../middleware/userAth');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -8,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 //get all users  
-router.get('/getAllUsers',userHelpers.getAllUsers);
+router.get('/getAllUsers',myLogger, userHelpers.getAllUsers);
 
 // create a user 
 router.post('/createNewUser',userHelpers.createUser);
