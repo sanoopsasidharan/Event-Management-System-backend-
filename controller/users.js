@@ -8,12 +8,17 @@ router.get('/', function(req, res, next) {
 });
 
 //get all users  
-router.get('/getAllUsers',userHelpers.getAllUsers)
+router.get('/getAllUsers',userHelpers.getAllUsers);
 
 // create a user 
-router.post('/createNewUser',userHelpers.createUser)
+router.post('/createNewUser',userHelpers.createUser);
 
-router.post('/login',userHelpers.loginUser)
+// login user
+router.post('/login',userHelpers.loginUser);
+
+// edit user password
+router.put("/editPassword",userHelpers.updatePassword)
+
 
 
 

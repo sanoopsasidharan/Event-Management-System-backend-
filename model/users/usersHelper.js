@@ -41,5 +41,22 @@ module.exports={
         }catch(err){
             res.json({message:'something error'})
         }
+    },
+    // update user password 
+    updatePassword : async (req,res)=>{
+        try{
+            const user = await db.get().collection(collection.usersCollection).findOne({_id:objectId(req.body.id)})
+            console.log(user);
+            if (user.password == req.body.password){
+                const updateUserDetails = await db.get().collection(collection.usersCollection)
+                .updateOne({_id:objectId(user._id)},{$set:{password:req.body.newPassword}})
+                console.log(updateUserDetails);
+                if (updateUserDetails.acknowledged) res.json({message:'password changed'})
+            }else{
+                res.json({message:'password is not valid'})
+            }
+        }catch(err){
+            res.json({message:'something error'})
+        }
     }
 }
