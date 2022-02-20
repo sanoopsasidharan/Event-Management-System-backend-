@@ -30,5 +30,11 @@ router.post('/createEvent',auth,eventHelpers.createEvents)
 // get user all events 
 router.get('/userAllEvents',eventHelpers.getAllEvents)
 
+// show single event 
+router.get('/getSingleEvent',eventHelpers.getSingleEvent)
+
+// update event 
+router.put('/updateEvent',eventHelpers.updateEvent)
+
 
 module.exports = router;

@@ -31,5 +31,26 @@ module.exports={
         }catch(err){
             res.json({message:'something err',events:false})
         }
+    },
+    // get single event
+    getSingleEvent: async (req,res)=>{
+        try{
+         const getEvent = await db.get().collection(collection.eventCollection).findOne({_id:objectId(req.body.Id)})
+         if (getEvent) res.json(getEvent)
+         else res.json(null)
+        }catch(err){
+            res.json({message:'something err',evet:false})
+        }
+    },
+    // update event 
+    updateEvent: async (req,res)=>{
+        try{
+          const updateEvent = await db.get().collection(collection.eventCollection)
+          .updateOne({_id:objectId(req.body.id)},{$set:{eventName:req.body.eventName,date:req.body.date}})
+          if(updateEvent) res.json({message:'update event',update: true})
+          else res.json({message:'not update event',update: false})
+        }catch(err){
+            res.json({message:'something error',update:false})
+        }
     }
 }
