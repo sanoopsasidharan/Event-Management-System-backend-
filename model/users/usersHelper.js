@@ -1,6 +1,8 @@
 const db = require ('../../config/connection');
 const objectId = require('mongodb').ObjectId
 const collection = require('../../config/collectionName');
+const jwt = require('jsonwebtoken');
+const key = 'sanoop'
 
 module.exports={
 
@@ -34,7 +36,13 @@ module.exports={
             if(req.body.name && req.body.password){
                 const user = await db.get().collection(collection.usersCollection)
                 .findOne({name:req.body.name,password:req.body.password})  
-                res.json(user)                            
+                // res.json(user)    
+                if(user){
+                    const userToken = jwt.sign({
+                        newUser:user._id
+                      },key)
+                    res.cookie('userToken',userToken,{httpOnly:true}).send();
+                }                        
             }else{
                 res.json({message:'name or password is empty'})
             }
@@ -58,5 +66,12 @@ module.exports={
         }catch(err){
             res.json({message:'something error'})
         }
+    },
+    // logout user
+    logOutUser:(req,res)=>{
+        res.cookie('userToken','',{
+            httpOnly:true,
+            expires:new Date(0)
+        }).json({message:'userToken cookie is clear'});
     }
 }
