@@ -10,6 +10,9 @@ router.get('/', function(req, res, next) {
 //get all users  
 router.get('/getAllUsers',userHelpers.getAllUsers)
 
+// create a user 
+router.post('/createNewUser',userHelpers.createUser)
+
 
 
 module.exports = router;
