@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const userHelpers = require('../model/users/usersHelper');
+const eventHelpers = require('../model/users/eventHelpers');
 const {auth} = require('../middleware/userAth');
 
 /* GET users listing. */
@@ -15,15 +16,19 @@ router.get('/getAllUsers', userHelpers.getAllUsers);
 router.post('/createNewUser',userHelpers.createUser);
 
 // login user
-router.post('/login',auth,userHelpers.loginUser);
+router.post('/login',userHelpers.loginUser);
 
 // edit user password
-router.put("/editPassword",userHelpers.updatePassword);
+router.put("/editPassword",auth,userHelpers.updatePassword);
 
 // logOut user
 router.post('/logoutUser',userHelpers.logOutUser)
 
+// add events
+router.post('/createEvent',auth,eventHelpers.createEvents)
 
+// get user all events 
+router.get('/userAllEvents',eventHelpers.getAllEvents)
 
 
 module.exports = router;

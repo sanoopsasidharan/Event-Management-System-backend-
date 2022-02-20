@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
 
 
 var usersRouter = require('./controller/users');
@@ -19,6 +20,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// handling session 
+app.use(session({
+  secret:'secret-key',
+  resave:false,
+  saveUninitialized:false
+}))
 
 // connecting data base 
 db.connect((err)=>{

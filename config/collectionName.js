@@ -1,3 +1,4 @@
 module.exports={
-    usersCollection : 'users'
+    usersCollection : 'users',
+    eventCollection : 'events'
 }

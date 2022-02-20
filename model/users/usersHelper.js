@@ -41,6 +41,8 @@ module.exports={
                     const userToken = jwt.sign({
                         newUser:user._id
                       },key)
+                      req.session.userId = user._id;
+                      console.log(req.session.userId);
                     res.cookie('userToken',userToken,{httpOnly:true}).send();
                 }                        
             }else{
