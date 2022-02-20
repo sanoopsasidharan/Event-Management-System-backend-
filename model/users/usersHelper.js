@@ -12,7 +12,6 @@ module.exports={
         }catch(err){
             console.log(err);
         }
-
     },
     // add new user
     createUser: async (req,res)=>{
@@ -26,6 +25,21 @@ module.exports={
             }
         }catch(err){
            res.json({message:'something error'})
+        }
+    },
+    // login user 
+    loginUser: async (req,res) =>{
+        console.log(req.body);
+        try{
+            if(req.body.name && req.body.password){
+                const user = await db.get().collection(collection.usersCollection)
+                .findOne({name:req.body.name,password:req.body.password})  
+                res.json(user)                            
+            }else{
+                res.json({message:'name or password is empty'})
+            }
+        }catch(err){
+            res.json({message:'something error'})
         }
     }
 }

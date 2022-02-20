@@ -13,6 +13,8 @@ router.get('/getAllUsers',userHelpers.getAllUsers)
 // create a user 
 router.post('/createNewUser',userHelpers.createUser)
 
+router.post('/login',userHelpers.loginUser)
+
 
 
 module.exports = router;
