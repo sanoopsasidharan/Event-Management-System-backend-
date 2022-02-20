@@ -36,8 +36,16 @@ router.get('/getSingleEvent',eventHelpers.getSingleEvent)
 // update event 
 router.put('/updateEvent',eventHelpers.updateEvent);
 
-// search event 
+
+// @search event
+// @body eventName
+// @return  findEvent
 router.post('/searchEvent',eventHelpers.searchEvent)
+
+// @sort events
+// @body eventName
+// @return events
+router.get('/sortingEvents',eventHelpers.sortingEvent)
 
 
 module.exports = router;

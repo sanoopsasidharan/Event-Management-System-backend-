@@ -57,9 +57,21 @@ module.exports={
     searchEvent: async (req,res)=>{
         try{
             const findEvent = await db.get().collection(collection.eventCollection)
-            .find({ eventName: { $regex : req.body.eventName} }).toArray();
+            .find({$and:[{user:req.session.userId},{ eventName: { $regex : req.body.eventName} }]}).toArray();
             if(findEvent.length > 0) res.json(findEvent);
             else res.json(null)
+        }catch(err){
+            res.json(null)
+        }
+    },
+    // sorting event 
+    sortingEvent: async (req,res)=>{
+        try{
+          const events = await db.get().collection(collection.eventCollection)
+          .find({user:req.session.userId}).sort({_id:-1}).toArray();
+          console.log(events);
+          if(events.length > 0) res.json(events);
+          else res.json(null)
         }catch(err){
             res.json(null)
         }
